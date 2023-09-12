@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>ЛР1: Контакт</title>
+</head>
+
+<body>
+    <!--Навигационная панель-->
+    <nav class="top-nav-block">
+        <table class="nav-table">
+            <tr>
+                <td><a href="index.html">Главная страница</a></td> 
+                <td><a href="interests.html">Мои интересы</a></td>
+                <td><a href="about-me.html">Обо мне</a></td>
+                <td><a href="album.html">Фотоальбом</a></td>
+                <td><a href="study.html">Учёба</a></td>
+                <td><a href="contacts.html">Контакт</a></td>
+                <td><a href="test.html">Тест</a></td>
+            </tr>
+        </table>
+    </nav>
+
+    <!--Информация о лабораторной работе-->
+    <main>
+        <h1>Отправить сообщение</h1>
+        <form method=post action="mailto: kostasmov@mail.ru">
+            <p><b>Фамилия Имя Отчество</b>: <input type="text"></p>
+
+            <p><b>Пол</b>:
+            <input type="radio" value="Мужской"> Мужской 
+            <input type="radio" value="Женский">Женский</p>
+
+            <p><b>Возраст</b>:
+            <select>
+                <option value="До 18 лет">До 18 лет</option>
+                <option value="18-29 лет">18-29 лет</option>
+                <option value="30-50 лет">30-50 лет</option>
+                <option value="Старше 50 лет">Старше 50 лет</option>
+            </select></p>
+
+            <p><b>E-mail</b>: <input type="email"></p>
+
+            <p><b>Сообщение</b>:</p>
+            <textarea rows="4" cols="50"></textarea><br>
+
+            <input type="submit" value="Отправить">
+            <input type="reset" value="Очистить форму">
+        </form>
+    </div>
+</body>
+</html>
