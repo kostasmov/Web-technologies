@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <title>ЛР1: Мои интересы</title>
+    <title>ЛР: Мои интересы</title>
+    <script src='scripts/fill-lists.js'></script>
 </head>
 
 <body>
@@ -38,6 +39,7 @@
             <a href="#summer">Лето</a> / 
             <a href="#autumn">Осень</a>
         </section>
+
         <section>
             <ol>
                 <li><p id="winter" class="linkable">
@@ -132,24 +134,11 @@
 
         <section>
             <p>Последние просмотренные фильмы:</p>
-            <ul>
-                <li>Величайший шоумен (2017)</li>
-                <li>Драйв (2011)</li>
-                <li>Кролик Джоджо (2019)</li>
-                <li>Аллея кошмаров (2021)</li>
-                <li>Варвар (2022)</li>
-                <li>Не смотрите наверх (2021)</li>
-            </ul>
+            <div id="filmsList">
+            <script>fillFilms(...film_arr)</script>
 
             <p>Последние добавленные альбомы:</p>
-            <ul>
-                <li>Crystal Castles - III (2012)</li>
-                <li>Noisecream - Murder Story (2018)</li>
-                <li>Электрофорез - 505 (2021)</li>
-                <li>Machine Age - Point of Departure (2019)</li>
-                <li>Carpenter Brut - TRILOGY (2017)</li>
-                <li>Kavinsky - OutRun (2013)</li>
-            </ul>
+            <script>fillAlbums(...album_arr)</script>
         </section>
     </main>
 </body>
