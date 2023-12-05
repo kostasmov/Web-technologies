@@ -5,32 +5,43 @@
     <link rel="stylesheet" href="style.css">
     <title>ЛР: Мои интересы</title>
     <script src='scripts/fill-lists.js'></script>
+    <script src="scripts/date_updater.js"></script>
 </head>
 
 <body>
-    <!--Навигационная панель-->
-    <nav class="nav-block">
-        <table class="nav-table">
-            <tr>
-                <td><a href="index.html">
-                    <img width="25px" src="photos/logo.png" alt="Логотип">
-                  </a></td> 
-                <td><a href="interests.html">Мои интересы</a></td>
-                <td><a href="about-me.html">Обо мне</a></td>
-                <td><a href="album.html">Фотоальбом</a></td>
-                <td><a href="study.html">Учёба</a></td>
-                <td><a href="contacts.html">Контакт</a></td>
-                <td><a href="test.html">Тест</a></td>
-            </tr>
-        </table>
+    <header class="main-header">
+    <nav>
+        <ul>
+            <li><a href="index.html"><img width="25px" src="photos/logo.png" alt="Логотип"></a></li>
+            <li><a href="about-me.html">Обо мне</a></li>
+            <li class="dropdown">
+                <a href="interests.html">Мои интересы</a>
+                <ul class="dropdown-content">
+                    <li><a href="interests.html#winter">Зима</a></li>
+                    <li><a href="interests.html#spring">Весна</a></li>
+                    <li><a href="interests.html#summer">Лето</a></li>
+                    <li><a href="interests.html#autumn">Осень</a></li>
+                </ul>
+            </li>
+            <li><a href="study.html">Учеба</a></li>
+            <li><a href="album.html">Фотоальбом</a></li>
+            <li><a href="contacts.html">Контакт</a></li>
+            <li><a href="test.html">Тест</a></li>
+            <li><a href="history.html">История просмотра</a></li>
+            <li><p id="currentDateTime"></p></li>
+        </ul>
     </nav>
+    </header>
+
+    <script>
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
 
     <!--Информационный блок-->
     <main>
-        <header>
-            <h1>Мои интересы</h1>
-            <h2>Допустим, мне нравится изучать природу</h2>
-        </header>
+        <h1>Мои интересы</h1>
+        <h2>Допустим, мне нравится изучать природу</h2>
 
         <section name="Content">
             <b>Содержание</b>: 
@@ -91,6 +102,7 @@
                     светового дня, и постепенно понижается температура окружающей среды. В средних широтах Европейской России осень
                     можно условно разделить на пять подсезонов.
                 </p>
+
                 <ul>
                     <li><p>
                         <b>1 подсезон</b> — начало осени (длится с конца августа до дня осеннего
@@ -133,13 +145,17 @@
         </section>
 
         <section>
-            <p>Последние просмотренные фильмы:</p>
+            <p><b>Последние просмотренные фильмы:</b></p>
             <div id="filmsList">
             <script>fillFilms(...film_arr)</script>
 
-            <p>Последние добавленные альбомы:</p>
+            <p><b>Последние добавленные альбомы:</b></p>
             <script>fillAlbums(...album_arr)</script>
         </section>
     </main>
+    
+    <script src='scripts/drop_menu.js'></script>
+    <script src='scripts/nav_page_loader.js'></script>
+    <script src="scripts/history.js"></script>
 </body>
 </html>
