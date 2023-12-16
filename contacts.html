@@ -7,6 +7,7 @@
     <script src="scripts/date_updater.js"></script>
     <script src="scripts/calendar.js" defer></script>
     <script src="scripts/contact_validator.js" defer></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 
 <body>
@@ -95,10 +96,29 @@
             <input type="submit" value="Отправить" id="submit">
             <input type="reset" value="Очистить форму">
         </form>
+        
+        <div id="popover" class="popover"></div>
+
+        <button id="openModalButton" class="openModalButton">Взломать РНКБ Банк</button>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+            <h3>Взлом</h3>
+            <p>Денег выкачено 100$ / 1 000 000$ ...<br>Продолжить?</p>
+            <div class="modal-buttons">
+                <button id="confirmBtn">Да</button>
+                <button id="cancelBtn">Нет</button>
+            </div>
+            </div>
+        </div>
+
+        <div id="overlay" class="overlay"></div>
     </main>
 
+    <script src='scripts/modal.js'></script>
     <script src='scripts/drop_menu.js'></script>
     <script src='scripts/nav_page_loader.js'></script>
     <script src="scripts/history.js"></script>
+    <script src="scripts/popover.js"></script>
 </body>
 </html>

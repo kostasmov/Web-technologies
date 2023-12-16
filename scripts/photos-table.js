@@ -1,68 +1,100 @@
-var fotos = ["photos/1.webp", "photos/2.webp", "photos/3.webp", "photos/4.webp", "photos/5.webp", 
+var photos = ["photos/1.webp", "photos/2.webp", "photos/3.webp", "photos/4.webp", "photos/5.webp", 
             "photos/6.webp", "photos/7.webp", "photos/8.webp", "photos/9.webp", "photos/10.webp", 
             "photos/11.webp", "photos/12.webp", "photos/13.webp", "photos/14.webp", "photos/15.webp", 
-            "photos/16.webp", "photos/17.webp", "photos/18.webp"];
+            "photos/16.webp", "photos/17.webp", "photos/18.webp", "photos/19.webp", "photos/20.webp"];
 
-var titles = ["Подпись 1", "Подпись 2", "Подпись 3", "Подпись 4", "Подпись 5", "Подпись 6",
-            "Подпись 7", "Подпись 8", "Подпись 9", "Подпись 10", "Подпись 11", "Подпись 12",
-            "Подпись 13", "Подпись 14", "Подпись 15", "Подпись 16", "Подпись 17", "Подпись 18"];
+var titles = ["Подпись 1", "Подпись 2", "Подпись 3", "Подпись 4", "Подпись 5", "Подпись 6", "Подпись 7",
+              "Подпись 8", "Подпись 9", "Подпись 10", "Подпись 11", "Подпись 12", "Подпись 13", "Подпись 14", 
+              "Подпись 15", "Подпись 16", "Подпись 17", "Подпись 18", "Подпись 19", "Подпись 20"];
 
-var photoAlbum = document.getElementById("photo-album");
+$(document).ready(function() {
+  var photoAlbum = $("#photo-album");
+  var totalImages = photos.length;
 
-// Заполнение фотоальбома
-for (var i = 0; i < fotos.length; i += 6) {
-  var row = document.createElement("div");
-  row.classList.add("row");
-  
-  // Заполнение строки фотоальбома
-  for (var j = i; j < i + 6 && j < fotos.length; j++) {
-    // Изображение
-    var img = document.createElement("img");
-    img.src = fotos[j];
-    img.alt = titles[j];
-    img.title = titles[j];
-    
-    // Подпись
-    var caption = document.createElement("div");
-    caption.classList.add("caption");
-    caption.textContent = titles[j];
-    
-    // Блок для изображения и подписи
-    var photoContainer = document.createElement("div");
-    photoContainer.classList.add("photo-container");
-    photoContainer.appendChild(img);
-    photoContainer.appendChild(caption);
+  for (var i = 0; i < photos.length; i++) {
+    var cell = $("<div>").addClass("cell");
+    var photoImg = $("<img>").addClass("photo")
+      .attr("src", photos[i])
+      .attr("title", titles[i]);
+    var title = $("<p>").text(titles[i]);
 
-    // При наведении заменить вид курсора
-    img.addEventListener("mouseover", function() {
-        this.style.cursor = "pointer";
+    cell.append(photoImg);
+    cell.append(title);
+
+    photoImg.click(openPhoto);
+
+    photoImg.mouseover(function() {
+      $(this).css("cursor", "pointer");
     });
 
-    // При нажатии открыть увеличенное фото
-    img.addEventListener('click', function() {
-        showImageModal(this.src, this.alt);
-    });
-    
-    row.appendChild(photoContainer);
+    photoAlbum.append(cell);
   }
 
-  photoAlbum.appendChild(row);
-}
+  function openPhoto() {
+    var index = $(this).index(".photo");
+    var photo = photos[index];
+    var title = titles[index];
 
-// Открытие изображения в модальном окне
-function showImageModal(src, alt) {
-  var modal = document.createElement("div");
-  modal.classList.add("modal");
-  
-  var img = document.createElement("img");
-  img.src = src;
-  img.alt = alt;
-  
-  modal.appendChild(img);
-  document.body.appendChild(modal);
+    var $photoModal = $("<div>").addClass("photo-modal");
+    var $photoContainer = $("<div>").addClass("photo-container");
+    var $enlargedPhoto = $("<img>").addClass("enlarged-photo")
+      .attr("src", photo)
+      .attr("alt", title)
+      .attr("title", title);
 
-  // Закрыть модальное окно по нажатию
-  modal.addEventListener('click', function() {
-      document.body.removeChild(modal);
-  });
-}
+    var $titleText = $("<p>").addClass("title-text").text(title);
+    var $counterText = $("<p>").addClass("counter-text").text((index + 1) + " из " + totalImages);
+
+    var $btnContainer = $("<div>").addClass("btn-container");
+    var $previousBtn = $("<button>").addClass("previous-btn").text("◀");
+    var $nextBtn = $("<button>").addClass("next-btn").text("▶");
+
+    $photoContainer.append($enlargedPhoto, $titleText);
+    $btnContainer.append($previousBtn, $counterText, $nextBtn);
+    $photoModal.append($photoContainer, $btnContainer);
+
+    $photoModal.on("click", closePhoto);
+
+    $("body").append($photoModal);
+
+    function updatePhoto(index) {
+      var newPhoto = photos[index];
+      var newTitle = titles[index];
+      var newCounter = (index + 1) + " из " + totalImages;
+
+      $counterText.text(newCounter);
+      
+      $enlargedPhoto.fadeOut(200, function() {
+        $enlargedPhoto
+          .attr("src", newPhoto)
+          .attr("alt", newTitle)
+          .attr("title", newTitle)
+          .fadeIn(400);
+      });
+      
+      $titleText.fadeOut(200, function() {
+        $titleText
+          .text(newTitle)
+          .fadeIn(200);
+      });
+    }
+
+    $previousBtn.on("click", function (e) {
+      e.stopPropagation();
+      index = (index - 1 + totalImages) % totalImages;
+      updatePhoto(index);
+    });
+
+    $nextBtn.on("click", function (e) {
+      e.stopPropagation();
+      index = (index + 1) % totalImages;
+      updatePhoto(index);
+    });
+
+    function closePhoto() {
+      $photoModal.fadeOut("fast", function () {
+        $photoModal.remove();
+      });
+    }
+  }
+});
